@@ -1,16 +1,27 @@
-# 5_3_Logging_Reporting
+# Assignment 3:
 
-1. List some logging and visualization tools available in the market with the preferred senario to use one over other.
+Create a file in your system. Whenever a someone performs some action(read, write, execute) on that file, the event should be logged somewhere
 
-2. Mention 10 best practises when logging. Why is log formatting necessary?
+1.  Install auditd:
+    There is also a toocal called iwatch but auditd is used in this assignment.
+    A tool called `Auditd` is used to track and monitor changes to a file. It can be installed in ubuntu with the command:
 
-[Answer 1 and 2 written in same pdf]()
+            sudo apt install auditd
 
+2.  Monitor a file:
+    Create a file m`sample-log.txt` which audtid is going to monitor.
 
-3. Create a file in your system. Whenever a someone performs some action(read, write, execute) on that file, the event should be logged somewhere. 
+    To monitor this file, auditd's configuration file `etc/audit.rules.d/audit.rules` is edited and rule is added for monitoring this file.
 
-[Answer]()
+        -w ~/Documents/sample-log.txt -p rwx -k monitor-log-file
 
-4. install logstash in your system. download a sample nginx log from https://github.com/elastic/examples/blob/master/Common%20Data%20Formats/nginx_logs/nginx_logs , parse the logs using logstash. The parsed output must contain the geogriphical information like country, state etc. that the request is originating from. save the parsed output to a file in your system.
+        > where rwx= read write exeute permissions
+        > -p= indicates the pemissions
+        > -k=key name
 
-[Answer]()
+3.  Any new modifications to the file like read or write actions are now logged into `/var/log/audit/audit.log`
+
+4.  Searching for the log
+    The saved logs can be searched using `ausearch` with the key of the file which was set earlier:
+
+        ausearch -k monitor-log-file
