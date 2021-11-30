@@ -5,7 +5,7 @@
 
 ```bash
 
- wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add –
+ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 
  sudo apt-get install apt-transport-https
 
@@ -27,12 +27,13 @@ Checking status of log stash service:
 ```
 
 3. Creation of conf file for parsing nginx logs:
+   A new conf file logstash.conf is created at `/etc/logstash/conf.d/`:
 
 ```conf
 
 input {
 	file {
-     		path => ["~/Documnents/nginx_logs"]
+     		path => ["~/Documnents/ops-docs/nginx-logs"]
         	start_position => "beginning"
  	}
 }
@@ -48,14 +49,23 @@ filter {
 }
 output {
 stdout { codec => rubydebug }
- 	file { path => "~/Documents/logstash-output.json"}
+ 	file { path => "~/Documents/ops-docs/logstash-output.json"}
 }
 
-Logstash has three fields input. filter and output. 
+Logstash has three fields input. filter and output.
 
-1. Input is the soruce of the log files 
+1. Input is the soruce of the log files
 2. Filter uses some plugin like to filter the input file
 3. Output is used to specify the destination of output log
 
 
 ```
+
+4. Logstash can be running the follwoing command from `/usr/share/logstash` dir:
+
+```bash
+
+sudo bin/logstash --path.settings /etc/logstash --path.data sensor39 -f /etc/logstash/conf.d/logstash.conf
+
+```
+
