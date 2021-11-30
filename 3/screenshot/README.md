@@ -3,9 +3,10 @@
 Create a file in your system. Whenever a someone performs some action(read, write, execute) on that file, the event should be logged somewhere
 
 1.  Install auditd:
+    There is also a toocal called iwatch but auditd is used in this assignment.
     A tool called `Auditd` is used to track and monitor changes to a file. It can be installed in ubuntu with the command:
 
-        sudo apt install auditd
+            sudo apt install auditd
 
 2.  Monitor a file:
     Create a file m`sample-log.txt` which audtid is going to monitor.
