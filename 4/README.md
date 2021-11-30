@@ -16,7 +16,11 @@
 
 ```
 
+![install ](https://github.com/LF-DevOps-Intern/5_3_logging_reporting-vikram-surpriso1997/blob/main/4/screenshot/install-logstash-dependenceis.png)
+
 Checking status of log stash service:
+
+![chekcing staus](https://github.com/LF-DevOps-Intern/5_3_logging_reporting-vikram-surpriso1997/blob/main/4/screenshot/logstash-running.png)
 
 2. Dowloading the nginx log file:
 
@@ -25,6 +29,8 @@ Checking status of log stash service:
     wget https://github.com/elastic/examples/blob/master/Common%20Data%20Formats/nginx_logs/nginx_logs
 
 ```
+
+![wget](https://github.com/LF-DevOps-Intern/5_3_logging_reporting-vikram-surpriso1997/blob/main/4/screenshot/wget%20nginx%20logs.png)
 
 3. Creation of conf file for parsing nginx logs:
    A new conf file logstash.conf is created at `/etc/logstash/conf.d/`:
@@ -35,6 +41,8 @@ input {
 	file {
      		path => ["~/Documnents/ops-docs/nginx-logs"]
         	start_position => "beginning"
+			sincedb_path=> "/dev/null"
+
  	}
 }
 filter {
@@ -51,6 +59,8 @@ output {
 stdout { codec => rubydebug }
  	file { path => "~/Documents/ops-docs/logstash-output.json"}
 }
+
+![conf file](https://github.com/LF-DevOps-Intern/5_3_logging_reporting-vikram-surpriso1997/blob/main/4/screenshot/nginx-confi-file.png)
 
 Logstash has three fields input. filter and output.
 
@@ -69,3 +79,6 @@ sudo bin/logstash --path.settings /etc/logstash --path.data sensor39 -f /etc/log
 
 ```
 
+But I encountered this where the output file is not generated and no obvious errors while running the logstash:
+
+![logstah error](https://github.com/LF-DevOps-Intern/5_3_logging_reporting-vikram-surpriso1997/blob/main/4/screenshot/error-logstash-.png)
